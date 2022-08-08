@@ -54,7 +54,7 @@ export default function RegisterForm({ setVisible }) {
   const [loading, setLoading] = useState(false);
 
   const registerSubmit = async () => {
-    navigate("/job");
+    navigate("/edu");
     // try {
     //   const { data } = await axios.post(
     //     `${process.env.REACT_APP_BACKEND_URL}/users/register`,

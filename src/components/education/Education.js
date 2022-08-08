@@ -136,7 +136,7 @@ export default function Education({ setVisible }) {
                   wd={true}
                 />
               </div>
-              <div className="reg_col" style={{ marginLeft: 80 }}>
+              <div className="reg_col" style={{ marginLeft: "16%" }}>
                 <div className="reg_line_header"> *Start Date</div>
                 <div className="reg_line_1">
                   <DateOfBirthSelect
@@ -157,7 +157,7 @@ export default function Education({ setVisible }) {
                   />
                 </div>
               </div>
-              <div className="reg_col" style={{ marginLeft: 80 }}>
+              <div className="reg_col" style={{ marginLeft: "16%" }}>
                 <div className="reg_line_header"> *End Date (Optional)</div>
                 <div className="reg_line_1">
                   <DateOfBirthSelect

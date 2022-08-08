@@ -35,7 +35,7 @@ export default function Experience({ setVisible }) {
   const [loading, setLoading] = useState(false);
 
   const registerSubmit = async () => {
-    navigate("/job");
+    navigate("/user");
     // try {
     //   const { data } = await axios.post(
     //     `${process.env.REACT_APP_BACKEND_URL}/users/register`,
@@ -73,7 +73,7 @@ export default function Experience({ setVisible }) {
             company_name,
             role,
           }}
-          validationSchema={registerValidation}
+          //validationSchema={registerValidation}
           onSubmit={() => {
             registerSubmit();
           }}

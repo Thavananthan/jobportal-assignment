@@ -20,7 +20,7 @@ export default function CreatePostPopup({ setVisible, edu }) {
           <button
             className="post_submit"
             onClick={() => {
-              edu ? navigate("/job") : navigate("/");
+              edu ? navigate("/job") : navigate("/user");
             }}
           >
             Skip
