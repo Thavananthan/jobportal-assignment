@@ -1,6 +1,8 @@
 import { Form, Formik } from "formik";
 import "./style.css";
 import { useState } from "react";
+import React from "react";
+
 import RegisterInput from "../inputs/registerInput";
 import * as Yup from "yup";
 

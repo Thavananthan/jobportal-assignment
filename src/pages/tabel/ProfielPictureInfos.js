@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function ProfielPictureInfos() {
   return (
     <div className="profile_img_wrap">

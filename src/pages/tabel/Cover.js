@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function Cover({ cover, visitor, photos }) {
   return (
     <div className="profile_cover">

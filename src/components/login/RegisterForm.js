@@ -1,4 +1,8 @@
 import { Form, Formik } from "formik";
+import React from "react";
+import axios from "axios";
+import DotLoader from "react-spinners/DotLoader";
+
 import "./style.css";
 import { useState } from "react";
 import RegisterInput from "../inputs/registerInput";
@@ -7,18 +11,18 @@ import TextArea from "../inputs/textarea";
 import * as Yup from "yup";
 
 import { useNavigate } from "react-router-dom";
-export default function RegisterForm({ setVisible }) {
+export default function RegisterForm({ setVisible, cover, profile }) {
   const navigate = useNavigate();
   const userInfos = {
     first_name: "",
     last_name: "",
     email: "",
-    phone_number: "",
+    mobile: "",
     location: "",
     bio: "",
   };
   const [user, setUser] = useState(userInfos);
-  const { first_name, last_name, email, phone_number, location, bio } = user;
+  const { first_name, last_name, email, mobile, location, bio } = user;
   const yearTemp = new Date().getFullYear();
   const handleRegisterChange = (e) => {
     const { name, value } = e.target;
@@ -42,7 +46,7 @@ export default function RegisterForm({ setVisible }) {
     email: Yup.string()
       .required("Enter a valid email address")
       .email("Enter a valid email address."),
-    phone_number: Yup.string().required("phone number required"),
+    mobile: Yup.string().required("phone number required"),
     location: Yup.string().required("location required"),
     bio: Yup.string().required("bio required"),
   });
@@ -54,34 +58,31 @@ export default function RegisterForm({ setVisible }) {
   const [loading, setLoading] = useState(false);
 
   const registerSubmit = async () => {
-    navigate("/edu");
-    // try {
-    //   const { data } = await axios.post(
-    //     `${process.env.REACT_APP_BACKEND_URL}/users/register`,
-    //     {
-    //       first_name,
-    //       last_name,
-    //       email,
-    //       password,
-    //       bYear,
-    //       bMonth,
-    //       bDay,
-    //       gender,
-    //     }
-    //   );
-    //   setError("");
-    //   setSuccess(data.message);
-    //   const { message, ...rest } = data;
-    //   setTimeout(() => {
-    //     dispatch({ type: "LOGIN", payload: rest });
-    //     Cookies.set("user", JSON.stringify(rest));
-    //     navigate("/");
-    //   }, 2000);
-    // } catch (error) {
-    //   setLoading(false);
-    //   setSuccess("");
-    //   setError(error.response.data.message);
-    // }
+    try {
+      setLoading(true);
+      const { data } = await axios.post(
+        `http://localhost:8000/api/users/register`,
+        {
+          first_name,
+          last_name,
+          email,
+          location,
+          mobile,
+          bio,
+          picture: profile,
+          cover,
+        }
+      );
+      setError("");
+      setSuccess(data.message);
+      setTimeout(() => {
+        navigate("/edu", { state: data.id });
+      }, 2000);
+    } catch (error) {
+      setLoading(false);
+      setSuccess("");
+      setError(error.response.data.message);
+    }
   };
   return (
     <div>
@@ -92,7 +93,7 @@ export default function RegisterForm({ setVisible }) {
             first_name,
             last_name,
             email,
-            phone_number,
+            mobile,
             location,
             bio,
           }}
@@ -130,7 +131,7 @@ export default function RegisterForm({ setVisible }) {
                 <RegisterInput
                   type="text"
                   placeholder="Contact Number"
-                  name="phone_number"
+                  name="mobile"
                   onChange={handleRegisterChange}
                   view={false}
                 />
@@ -146,7 +147,7 @@ export default function RegisterForm({ setVisible }) {
                 <RegisterInput
                   type="text"
                   placeholder="Locations"
-                  name="locationsss"
+                  name="location"
                   onChange={handleRegisterChange}
                   view={true}
                 />
@@ -165,6 +166,7 @@ export default function RegisterForm({ setVisible }) {
                 <button className="light_blue_btn open_signup">Create</button>
               </div>
 
+              <DotLoader color="#1876f2" loading={loading} size={30} />
               {error && <div className="error_text">{error}</div>}
               {success && <div className="success_text">{success}</div>}
             </Form>

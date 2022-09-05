@@ -1,3 +1,4 @@
+import React from "react";
 import "./style.css";
 import Applications from "../../components/application/Application";
 export default function Application() {

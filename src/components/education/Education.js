@@ -1,4 +1,8 @@
 import { Form, Formik } from "formik";
+import React from "react";
+import axios from "axios";
+import DotLoader from "react-spinners/DotLoader";
+
 import "./style.css";
 import { useState } from "react";
 import RegisterInput from "../inputs/registerInput";
@@ -9,30 +13,30 @@ import * as Yup from "yup";
 
 import { useNavigate } from "react-router-dom";
 
-export default function Education({ setVisible }) {
+export default function Education({ setVisible, Id }) {
   const navigate = useNavigate();
   const userInfos = {
     school: "",
     degree: "",
-    field_of_study: "",
-    start_y: new Date().getFullYear(),
-    start_m: new Date().getMonth() + 1,
-    end_y: new Date().getFullYear(),
-    end_m: new Date().getFullYear(),
+    fstudy: "",
+    sYear: new Date().getFullYear(),
+    sMonth: new Date().getMonth() + 1,
+    eYear: new Date().getFullYear(),
+    eMonth: new Date().getFullYear(),
     grade: "",
-    activities: "",
+    activity: "",
   };
   const [user, setUser] = useState(userInfos);
   const {
     school,
     degree,
-    field_of_study,
-    start_y,
-    start_m,
-    end_y,
-    end_m,
+    fstudy,
+    sYear,
+    sMonth,
+    eYear,
+    eMonth,
     grade,
-    activities,
+    activity,
   } = user;
   const yearTemp = new Date().getFullYear();
   const handleRegisterChange = (e) => {
@@ -51,34 +55,35 @@ export default function Education({ setVisible }) {
   const [loading, setLoading] = useState(false);
 
   const registerSubmit = async () => {
-    navigate("/job");
-    // try {
-    //   const { data } = await axios.post(
-    //     `${process.env.REACT_APP_BACKEND_URL}/users/register`,
-    //     {
-    //       first_name,
-    //       last_name,
-    //       email,
-    //       password,
-    //       bYear,
-    //       bMonth,
-    //       bDay,
-    //       gender,
-    //     }
-    //   );
-    //   setError("");
-    //   setSuccess(data.message);
-    //   const { message, ...rest } = data;
-    //   setTimeout(() => {
-    //     dispatch({ type: "LOGIN", payload: rest });
-    //     Cookies.set("user", JSON.stringify(rest));
-    //     navigate("/");
-    //   }, 2000);
-    // } catch (error) {
-    //   setLoading(false);
-    //   setSuccess("");
-    //   setError(error.response.data.message);
-    // }
+    try {
+      setLoading(true);
+
+      const { data } = await axios.put(
+        `http://localhost:8000/api/users/updateDetailsEducation/${Id}`,
+        {
+          infos: {
+            school,
+            degree,
+            fstudy,
+            sYear,
+            sMonth,
+            eYear,
+            eMonth,
+            grade,
+            activity,
+          },
+        }
+      );
+      setError("");
+      setSuccess(data.message);
+      setTimeout(() => {
+        navigate("/job", { state: Id });
+      }, 2000);
+    } catch (error) {
+      setLoading(false);
+      setSuccess("");
+      setError(error.response.data.message);
+    }
   };
   return (
     <div>
@@ -88,13 +93,13 @@ export default function Education({ setVisible }) {
           initialValues={{
             school,
             degree,
-            field_of_study,
-            start_y,
-            start_m,
-            end_y,
-            end_m,
+            fstudy,
+            sYear,
+            sMonth,
+            eYear,
+            eMonth,
             grade,
-            activities,
+            activity,
           }}
           // validationSchema={registerValidation}
           onSubmit={() => {
@@ -130,7 +135,7 @@ export default function Education({ setVisible }) {
                   type="text"
                   label="Field of Study"
                   placeholder="Ex: Computing"
-                  name="field_of_study"
+                  name="fstudy"
                   onChange={handleRegisterChange}
                   view={false}
                   wd={true}
@@ -140,7 +145,7 @@ export default function Education({ setVisible }) {
                 <div className="reg_line_header"> *Start Date</div>
                 <div className="reg_line_1">
                   <DateOfBirthSelect
-                    bYear={start_y}
+                    bYear={sYear}
                     months={months}
                     years={years}
                     handleRegisterChange={handleRegisterChange}
@@ -148,7 +153,7 @@ export default function Education({ setVisible }) {
                     //   dateError={dateError}
                   />
                   <DateOfBirthSelect
-                    bYear={start_y}
+                    bYear={sMonth}
                     months={months}
                     years={years}
                     handleRegisterChange={handleRegisterChange}
@@ -161,7 +166,7 @@ export default function Education({ setVisible }) {
                 <div className="reg_line_header"> *End Date (Optional)</div>
                 <div className="reg_line_1">
                   <DateOfBirthSelect
-                    bYear={start_y}
+                    bYear={eYear}
                     months={months}
                     years={years}
                     handleRegisterChange={handleRegisterChange}
@@ -169,7 +174,7 @@ export default function Education({ setVisible }) {
                     //   dateError={dateError}
                   />
                   <DateOfBirthSelect
-                    bYear={start_y}
+                    bYear={eMonth}
                     months={months}
                     years={years}
                     handleRegisterChange={handleRegisterChange}
@@ -181,8 +186,8 @@ export default function Education({ setVisible }) {
               <div className="reg_line">
                 <TextArea
                   type="textarea"
-                  placeholder="Activities and societies"
-                  name="bio"
+                  placeholder="activity and societies"
+                  name="activity"
                   onChange={handleRegisterChange}
                   view={false}
                   wd={true}
@@ -193,6 +198,7 @@ export default function Education({ setVisible }) {
                 <button className="light_blue_btn open_signup">Save</button>
               </div>
 
+              <DotLoader color="#1876f2" loading={loading} size={30} />
               {error && <div className="error_text">{error}</div>}
               {success && <div className="success_text">{success}</div>}
             </Form>

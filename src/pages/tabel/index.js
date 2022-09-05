@@ -1,5 +1,7 @@
 import "./style.css";
 import Cover from "./Cover";
+import React from "react";
+
 import ProfielPictureInfos from "./ProfielPictureInfos";
 import RegisterForm from "../../components/login/RegisterForm";
 
