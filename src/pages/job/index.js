@@ -11,6 +11,7 @@ export default function Job() {
 
   return (
     <div className="profile">
+      {console.log(state)}
       {visible && <PopUp setVisible={setVisible} />}
       <div className="profile_top">
         <div className="profile_container">

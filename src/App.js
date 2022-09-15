@@ -8,10 +8,23 @@ import Application from "./pages/application";
 import Table from "./pages/tabel";
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <div>
+      <ToastContainer
+        position="top-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Header />
       <Routes>
         <Route path="/" element={<Profile />} exact />

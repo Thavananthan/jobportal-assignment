@@ -76,7 +76,7 @@ export default function RegisterForm({ setVisible, cover, profile }) {
       setError("");
       setSuccess(data.message);
       setTimeout(() => {
-        navigate("/edu", { state: data.id });
+        navigate("/edu", { state: data });
       }, 2000);
     } catch (error) {
       setLoading(false);

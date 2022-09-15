@@ -117,7 +117,8 @@ export default function Cover({ setCover, visitor, photos }) {
       // }
     } catch (error) {
       setLoading(false);
-      setError(error.response.data.message);
+      console.log(error);
+      //setError(error.response.data.message);
     }
   };
 

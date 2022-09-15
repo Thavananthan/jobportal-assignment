@@ -6,6 +6,7 @@ import "./style.css";
 import { useState } from "react";
 import RegisterInput from "../inputs/registerInput";
 import TextArea from "../inputs/textarea";
+import { toast } from "react-toastify";
 
 import * as Yup from "yup";
 
@@ -41,19 +42,27 @@ export default function Experience({ setVisible, Id }) {
     try {
       setLoading(true);
 
-      const { data } = await axios.put(
-        `http://localhost:8000/api/users/updateDetailsExperience/${Id}`,
+      const { data } = await axios.post(
+        `http://localhost:8000/api/users/createExp`,
         {
-          jobs: {
-            companyName,
-            role,
-          },
+          companyName,
+          role,
+          user: Id._id,
         }
       );
+
       setError("");
       setSuccess(data.message);
+      const { demo } = await axios.put(
+        `http://localhost:8000/api/users/updateuser/${Id._id}`,
+        {
+          upProfile: Id.upProfile + 1,
+        }
+      );
       setTimeout(() => {
-        navigate("/user", { state: Id });
+        toast("welcome");
+        setLoading(false);
+        navigate("/user", { state: Id._id });
       }, 2000);
     } catch (error) {
       setLoading(false);
@@ -63,6 +72,7 @@ export default function Experience({ setVisible, Id }) {
   };
   return (
     <div>
+      {console.log(Id)}
       <div>
         <Formik
           enableReinitialize

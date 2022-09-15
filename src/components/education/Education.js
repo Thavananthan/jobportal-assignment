@@ -8,6 +8,7 @@ import { useState } from "react";
 import RegisterInput from "../inputs/registerInput";
 import DateOfBirthSelect from "./DateOfBirthSelect";
 import TextArea from "../inputs/textarea";
+import { toast } from "react-toastify";
 
 import * as Yup from "yup";
 
@@ -57,36 +58,44 @@ export default function Education({ setVisible, Id }) {
   const registerSubmit = async () => {
     try {
       setLoading(true);
-
-      const { data } = await axios.put(
-        `http://localhost:8000/api/users/updateDetailsEducation/${Id}`,
+      const { data } = await axios.post(
+        `http://localhost:8000/api/users/createEduc`,
         {
-          infos: {
-            school,
-            degree,
-            fstudy,
-            sYear,
-            sMonth,
-            eYear,
-            eMonth,
-            grade,
-            activity,
-          },
+          school: school,
+          degree: degree,
+          fstudy: fstudy,
+          sYear: sYear,
+          sMonth: sMonth,
+          eYear: eYear,
+          eMonth: eMonth,
+          grade: grade,
+          activity: activity,
+          user: Id.id,
         }
       );
       setError("");
       setSuccess(data.message);
-      setTimeout(() => {
-        navigate("/job", { state: Id });
-      }, 2000);
+
+      setTimeout(async () => {
+        const { data } = await axios.put(
+          `http://localhost:8000/api/users/updateuser/${Id.id}`,
+          {
+            upProfile: Id.upProfile + 1,
+          }
+        );
+        toast("user education sucees");
+        setLoading(false);
+        navigate("/job", { state: data });
+      }, 4000);
     } catch (error) {
-      setLoading(false);
       setSuccess("");
-      setError(error.response.data.message);
+      toast(error);
+      setError(error);
     }
   };
   return (
     <div>
+      {console.log(Id.id)}
       <div>
         <Formik
           enableReinitialize
@@ -146,8 +155,8 @@ export default function Education({ setVisible, Id }) {
                 <div className="reg_line_1">
                   <DateOfBirthSelect
                     bYear={sYear}
-                    months={months}
                     years={years}
+                    name="sYear"
                     handleRegisterChange={handleRegisterChange}
                     yea={true}
                     //   dateError={dateError}
@@ -155,7 +164,7 @@ export default function Education({ setVisible, Id }) {
                   <DateOfBirthSelect
                     bYear={sMonth}
                     months={months}
-                    years={years}
+                    name="sMonth"
                     handleRegisterChange={handleRegisterChange}
                     mon={true}
                     //   dateError={dateError}
@@ -169,6 +178,7 @@ export default function Education({ setVisible, Id }) {
                     bYear={eYear}
                     months={months}
                     years={years}
+                    name="eYear"
                     handleRegisterChange={handleRegisterChange}
                     yea={true}
                     //   dateError={dateError}
@@ -177,6 +187,7 @@ export default function Education({ setVisible, Id }) {
                     bYear={eMonth}
                     months={months}
                     years={years}
+                    name="eMonth"
                     handleRegisterChange={handleRegisterChange}
                     mon={true}
                     //   dateError={dateError}

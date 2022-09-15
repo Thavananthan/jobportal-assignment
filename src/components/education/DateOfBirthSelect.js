@@ -3,6 +3,7 @@ import React from "react";
 
 export default function DateOfBirthSelect({
   bDay,
+  name,
   bMonth,
   bYear,
   days,
@@ -38,7 +39,7 @@ export default function DateOfBirthSelect({
       </select> */}
       {mon && (
         <select
-          name="bMonth"
+          name={name}
           value={bMonth}
           onChange={handleRegisterChange}
           style={{ width: 200 }}
@@ -52,7 +53,7 @@ export default function DateOfBirthSelect({
       )}
       {yea && (
         <select
-          name="bYear"
+          name={name}
           value={bYear}
           onChange={handleRegisterChange}
           style={{ width: 200 }}
