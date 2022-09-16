@@ -5,27 +5,29 @@ import DotLoader from "react-spinners/DotLoader";
 
 import "./style.css";
 import { useState } from "react";
-import RegisterInput from "../inputs/registerInput";
+import RegisterInput from "../../../components/inputs/registerInput";
 import DateOfBirthSelect from "./DateOfBirthSelect";
-import TextArea from "../inputs/textarea";
+import TextArea from "../../../components/inputs/textarea";
 import { toast } from "react-toastify";
 
 import * as Yup from "yup";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-export default function Education({ setVisible, Id }) {
+export default function EducationEdit({ setVisible, Id }) {
   const navigate = useNavigate();
+  const { state } = useLocation();
+
   const userInfos = {
-    school: "",
-    degree: "",
-    fstudy: "",
-    sYear: new Date().getFullYear(),
-    sMonth: new Date().getMonth() + 1,
-    eYear: new Date().getFullYear(),
-    eMonth: new Date().getFullYear(),
+    school: state.school,
+    degree: state.degree,
+    fstudy: state.fstudy,
+    sYear: state.sYear,
+    sMonth: state.sMonth,
+    eYear: state.eYear,
+    eMonth: state.eMonth,
     grade: "",
-    activity: "",
+    activity: state.activity,
   };
   const [user, setUser] = useState(userInfos);
   const {
@@ -58,34 +60,33 @@ export default function Education({ setVisible, Id }) {
   const registerSubmit = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        `http://localhost:8000/api/users/createEduc`,
+      const { data } = await axios.put(
+        `http://localhost:8000/api/users/updateDetailsEducation/${state._id}`,
         {
-          school: school,
-          degree: degree,
-          fstudy: fstudy,
-          sYear: sYear,
-          sMonth: sMonth,
-          eYear: eYear,
-          eMonth: eMonth,
-          grade: grade,
-          activity: activity,
-          user: Id._id,
+          school,
+          degree,
+          fstudy,
+          sYear,
+          sMonth,
+          eYear,
+          eMonth,
+          grade,
+          activity,
         }
       );
       setError("");
       setSuccess(data.message);
 
       setTimeout(async () => {
-        const { data } = await axios.put(
-          `http://localhost:8000/api/users/updateuser/${Id._id}`,
-          {
-            upProfile: Id.upProfile + 1,
-          }
-        );
-        toast("user education sucees");
+        // const { data } = await axios.put(
+        //   `http://localhost:8000/api/users/updateuser/${Id.id}`,
+        //   {
+        //     upProfile: Id.upProfile + 1,
+        //   }
+        // );
+        toast("user education update success");
         setLoading(false);
-        navigate("/job", { state: data });
+        navigate("/user", { state: data.user._id });
       }, 4000);
     } catch (error) {
       setSuccess("");
@@ -95,7 +96,7 @@ export default function Education({ setVisible, Id }) {
   };
   return (
     <div>
-      {console.log(Id.id)}
+      {console.log(state)}
       <div>
         <Formik
           enableReinitialize
@@ -150,7 +151,7 @@ export default function Education({ setVisible, Id }) {
                   wd={true}
                 />
               </div>
-              <div className="reg_col" style={{ marginLeft: "16%" }}>
+              <div className="reg_col" style={{ marginLeft: "20%" }}>
                 <div className="reg_line_header"> *Start Date</div>
                 <div className="reg_line_1">
                   <DateOfBirthSelect
@@ -171,7 +172,7 @@ export default function Education({ setVisible, Id }) {
                   />
                 </div>
               </div>
-              <div className="reg_col" style={{ marginLeft: "16%" }}>
+              <div className="reg_col" style={{ marginLeft: "20%" }}>
                 <div className="reg_line_header"> *End Date (Optional)</div>
                 <div className="reg_line_1">
                   <DateOfBirthSelect
@@ -206,7 +207,7 @@ export default function Education({ setVisible, Id }) {
               </div>
 
               <div className="reg_btn_wrapper">
-                <button className="light_blue_btn open_signup">Save</button>
+                <button className="light_blue_btn open_signup">Update</button>
               </div>
 
               <DotLoader color="#1876f2" loading={loading} size={30} />

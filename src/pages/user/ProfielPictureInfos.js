@@ -5,10 +5,13 @@ import { useRef, useState } from "react";
 import ProfilePicture from "../../components/profielPicture/index";
 import PulseLoader from "react-spinners/PulseLoader";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import "./style.css";
 
-export default function ProfielPictureInfos({ Users, setVisible }) {
+export default function ProfielPictureInfos({ Users, setVisible, featchData }) {
+  const navigate = useNavigate();
+
   const [show, setShow] = useState(false);
   const [viewImage, setViewImage] = useState("");
   const [isImage, setIsImage] = useState("");
@@ -26,6 +29,15 @@ export default function ProfielPictureInfos({ Users, setVisible }) {
           url: viewImage,
         }
       );
+
+      const { demo } = await axios.put(
+        `http://localhost:8000/api/users/updateuser/${Users._id}`,
+        {
+          upProfile: Users.upProfile + 1,
+        }
+      );
+
+      await featchData();
 
       setTimeout(() => {
         setLoading(false);
@@ -93,7 +105,11 @@ export default function ProfielPictureInfos({ Users, setVisible }) {
         <div className="profile_w_col">
           <div className="row_line">
             <div className="profile_name">
-              {Users.first_name} {Users.last_name}
+              {Users.first_name} {Users.last_name}{" "}
+              <div
+                onClick={() => navigate("/userEdit", { state: Users })}
+                className="delete_icon"
+              ></div>
             </div>
             <div className="profile_name">
               <p className="reg_line_header">

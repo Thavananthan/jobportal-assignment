@@ -8,9 +8,11 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Cover from "./Cover";
 import ProfielPictureInfos from "./ProfielPictureInfos";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function User() {
+  const navigate = useNavigate();
+
   const { state } = useLocation();
   const [visible, setVisible] = useState(false);
 
@@ -25,13 +27,12 @@ export default function User() {
     { id: "12", name: "demooo" },
   ];
 
-  useEffect(async () => {
-    console.log(state);
+  async function featchData() {
     try {
       setLoading(true);
 
       const { data } = await axios.get(
-        `http://localhost:8000/api/users/getProfile/${state}`
+        `http://localhost:8000/api/users/getProfile/632389d5f6c5590b46a74e4f`
       );
       setError("");
       setSuccess(data.message);
@@ -39,18 +40,42 @@ export default function User() {
         setUsers(data);
         setExp(data.experience);
         setEdu(data.education);
+        setLoading(false);
       }, 4000);
-      setLoading(false);
     } catch (error) {
       setLoading(false);
       setSuccess("");
       setError(error.response.data.message);
     }
-  }, []);
+  }
 
   useEffect(() => {
-    to;
+    featchData();
   }, []);
+
+  const onDeleteEdu = async (id) => {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:8000/api/users/deleteEdu/${id}`
+      );
+      toast("Education delete successfully!");
+      featchData();
+    } catch (error) {
+      toast(error);
+    }
+  };
+
+  const onDeleteExp = async (id) => {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:8000/api/users/deleteExp/${id}`
+      );
+      toast("Experince delete successfully!");
+      featchData();
+    } catch (error) {
+      toast(error);
+    }
+  };
 
   return (
     <div className="profile">
@@ -75,9 +100,12 @@ export default function User() {
         ) : (
           <>
             <div className="profile_container">
-              {console.log(users)}
-              <Cover Users={users} />
-              <ProfielPictureInfos Users={users} setVisible={setVisible} />
+              <Cover Users={users} featchData={featchData} />
+              <ProfielPictureInfos
+                Users={users}
+                setVisible={setVisible}
+                featchData={featchData}
+              />
             </div>
             <div className="login">
               <div class="container">
@@ -102,7 +130,7 @@ export default function User() {
                     <li class="progress-point done"></li>
                     <li class="progress-point todo"></li>
                   </ol>
-                ) : users.upProfile == 4 ? (
+                ) : users.upProfile >= 4 ? (
                   <ol class="progress-meter">
                     <li class="progress-point done"></li>
                     <li class="progress-point done"></li>
@@ -122,7 +150,13 @@ export default function User() {
               <br />
               <div className="profile_body">
                 <div className="login">
-                  <h2 style={{ margin: 10 }}>Education</h2>
+                  <h2 style={{ margin: 10 }}>
+                    Education{" "}
+                    <div
+                      onClick={() => navigate("/edu", { state: users })}
+                      className="plus_icon"
+                    ></div>
+                  </h2>
                   <div style={{ margin: 20 }}>
                     <div className="row_line_2">
                       <div className="profile_friend_imgs">
@@ -141,7 +175,17 @@ export default function User() {
                                 <p className="reg_line_header">
                                   School: {x.school}
                                 </p>
-                                <div className="delete_icon"></div>
+                                <div
+                                  onClick={() =>
+                                    navigate("/eduEdit", { state: x })
+                                  }
+                                  className="edit_icon"
+                                ></div>
+
+                                <div
+                                  onClick={() => onDeleteEdu(x._id)}
+                                  className="trash_icon"
+                                ></div>
                               </div>
                               <p className="reg_line_header">
                                 Degree: {x.degree}
@@ -168,7 +212,13 @@ export default function User() {
               <br />
               <div className="profile_body">
                 <div className="login">
-                  <h2 style={{ margin: 10 }}>Experince</h2>
+                  <h2 style={{ margin: 10 }}>
+                    Experince{" "}
+                    <div
+                      onClick={() => navigate("/job", { state: users })}
+                      className="plus_icon"
+                    ></div>
+                  </h2>
                   <div style={{ margin: 20 }}>
                     <div className="row_line_2">
                       <div className="profile_friend_imgs">
@@ -185,8 +235,18 @@ export default function User() {
                             <div>
                               <p className="reg_line_header">
                                 Company Name: {x.companyName}
+                                <div
+                                  onClick={() =>
+                                    navigate("/expEdit", { state: x })
+                                  }
+                                  className="edit_icon"
+                                ></div>
+                                <div
+                                  onClick={() => onDeleteExp(x._id)}
+                                  className="trash_icon"
+                                ></div>
                               </p>
-                              <p className="reg_line_header">Role: {x.role}</p>{" "}
+                              <p className="reg_line_header">Role: {x.role}</p>
                             </div>
                           ))}
                       </div>

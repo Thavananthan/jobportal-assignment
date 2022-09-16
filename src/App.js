@@ -3,6 +3,10 @@ import { Routes, Route } from "react-router-dom";
 import Profile from "./pages/profile";
 import Job from "./pages/job";
 import Education from "./pages/education";
+import EditUser from "./pages/user/edit";
+import EducationEdit from "./pages/user/edu";
+import ExperienceEdit from "./pages/user/exp";
+
 import User from "./pages/user";
 import Application from "./pages/application";
 import Table from "./pages/tabel";
@@ -33,6 +37,9 @@ function App() {
         <Route path="/user" element={<User />} exact />
         <Route path="/app" element={<Application />} exact />
         <Route path="/tab" element={<Table />} exact />
+        <Route path="/userEdit" element={<EditUser />} exact />
+        <Route path="/eduEdit" element={<EducationEdit />} exact />
+        <Route path="/expEdit" element={<ExperienceEdit />} exact />
       </Routes>
       <Footer />
     </div>

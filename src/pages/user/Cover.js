@@ -8,7 +8,13 @@ import getCroppedImg from "../../helpers/getCroppedImg";
 import { uploadImages } from "../../functions/uploadImages";
 import { toast } from "react-toastify";
 
-export default function Cover({ setCover, visitor, photos, Users }) {
+export default function Cover({
+  setCover,
+  visitor,
+  photos,
+  Users,
+  featchData,
+}) {
   const [showCoverMneu, setShowCoverMenu] = useState(false);
   const [coverPicture, setCoverPicture] = useState("");
   const [loading, setLoading] = useState(false);
@@ -95,6 +101,15 @@ export default function Cover({ setCover, visitor, photos, Users }) {
               url: res[0].url,
             }
           );
+
+          const { demo } = await axios.put(
+            `http://localhost:8000/api/users/updateuser/${Users._id}`,
+            {
+              upProfile: Users.upProfile + 1,
+            }
+          );
+
+          await featchData();
 
           setTimeout(() => {
             setLoading(false);
