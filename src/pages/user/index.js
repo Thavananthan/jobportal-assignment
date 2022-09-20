@@ -32,7 +32,7 @@ export default function User() {
       setLoading(true);
 
       const { data } = await axios.get(
-        `http://localhost:8000/api/users/getProfile/632389d5f6c5590b46a74e4f`
+        `http://localhost:8000/api/users/getProfile/${state}`
       );
       setError("");
       setSuccess(data.message);

@@ -72,7 +72,7 @@ export default function Experience({ setVisible, Id }) {
   };
   return (
     <div>
-      {console.log(Id)}
+      {console.log(Id._id)}
       <div>
         <Formik
           enableReinitialize

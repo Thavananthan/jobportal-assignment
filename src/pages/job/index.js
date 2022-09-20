@@ -12,7 +12,7 @@ export default function Job() {
   return (
     <div className="profile">
       {console.log(state)}
-      {visible && <PopUp setVisible={setVisible} />}
+      {visible && <PopUp setVisible={setVisible} Id={state} />}
       <div className="profile_top">
         <div className="profile_container">
           <h5>* indicates required</h5> <br />

@@ -95,7 +95,7 @@ export default function Education({ setVisible, Id }) {
   };
   return (
     <div>
-      {console.log(Id.id)}
+      {console.log(Id._id)}
       <div>
         <Formik
           enableReinitialize

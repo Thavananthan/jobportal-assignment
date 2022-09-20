@@ -4,7 +4,13 @@ import React from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 
-export default function CreatePostPopup({ setVisible, edu, profile, prof }) {
+export default function CreatePostPopup({
+  setVisible,
+  edu,
+  profile,
+  prof,
+  Id,
+}) {
   const navigate = useNavigate();
 
   return (
@@ -36,7 +42,9 @@ export default function CreatePostPopup({ setVisible, edu, profile, prof }) {
             <button
               className="post_submit"
               onClick={() => {
-                edu ? navigate("/job") : navigate("/user");
+                edu
+                  ? navigate("/job", { state: Id })
+                  : navigate("/user", { state: Id._id });
               }}
             >
               Skip
