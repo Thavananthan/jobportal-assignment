@@ -18,8 +18,10 @@ export default function CreatePostPopup({
       <div className="postBox">
         {prof ? (
           <div style={{ padding: 10, width: "100%" }}>
-            <p className="reg_line_header">Phone Number : {profile.mobile}</p>
-            <p className="reg_line_header">Email: {profile.email}</p>{" "}
+            <h6 style={{ fontWeight: "700" }}>
+              Phone Number : {profile.mobile}
+            </h6>
+            <h6 style={{ fontWeight: "700" }}>Email: {profile.email}</h6>{" "}
             <button
               className="post_submit"
               onClick={() => {

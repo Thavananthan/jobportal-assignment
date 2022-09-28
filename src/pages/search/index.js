@@ -5,16 +5,15 @@ import DotLoader from "react-spinners/DotLoader";
 import PopUp from "../../components/Popup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Search } from "../../svg";
 
 import Cover from "./Cover";
 import ProfielPictureInfos from "./ProfielPictureInfos";
-import { useLocation, useNavigate } from "react-router-dom";
-import SearchMenu from "../../components/search/SearchMenu";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export default function User() {
   const navigate = useNavigate();
   const color = "#65676b";
+  const { id } = useParams();
 
   const { state } = useLocation();
   const [visible, setVisible] = useState(false);
@@ -33,7 +32,7 @@ export default function User() {
       setLoading(true);
 
       const { data } = await axios.get(
-        `http://localhost:8000/api/users/getProfile/${state}`
+        `http://localhost:8000/api/users/getProfile/${id}`
       );
       setError("");
       setSuccess(data.message);
@@ -100,7 +99,7 @@ export default function User() {
           </center>
         ) : (
           <>
-            <div className="profile_container">
+            {/* <div className="profile_container">
               {!showSearchMenu && (
                 <div
                   style={{ width: "40%", marginBottom: 10 }}
@@ -123,7 +122,7 @@ export default function User() {
                   setShowSearchMenu={setShowSearchMenu}
                 />
               )}
-            </div>
+            </div> */}
             <div className="profile_container">
               <Cover Users={users} featchData={featchData} />
               <ProfielPictureInfos
@@ -179,10 +178,10 @@ export default function User() {
                 <div className="login">
                   <h2 style={{ margin: 10 }}>
                     Education{" "}
-                    <div
+                    {/* <div
                       onClick={() => navigate("/edu", { state: users })}
                       className="plus_icon"
-                    ></div>
+                    ></div> */}
                   </h2>
                   <div style={{ margin: 20 }}>
                     <div className="row_line_2">
@@ -207,7 +206,7 @@ export default function User() {
                             <div
                               style={{
                                 borderWidth: 3,
-                                padding: 10,
+                                padding: 5,
                                 borderRadius: 8,
                                 height: "100%",
                                 boxShadow: "1px 2px 9px #9E9E9E",
@@ -217,7 +216,7 @@ export default function User() {
                                 <p className="reg_line_header">
                                   School: {x.school}
                                 </p>
-                                <div
+                                {/* <div
                                   onClick={() =>
                                     navigate("/eduEdit", { state: x })
                                   }
@@ -227,7 +226,7 @@ export default function User() {
                                 <div
                                   onClick={() => onDeleteEdu(x._id)}
                                   className="trash_icon"
-                                ></div>
+                                ></div> */}
                               </div>
                               <p className="reg_line_header">
                                 Degree: {x.degree}
@@ -256,10 +255,10 @@ export default function User() {
                 <div>
                   <h2 style={{ margin: 10 }}>
                     Experince{" "}
-                    <div
+                    {/* <div
                       onClick={() => navigate("/job", { state: users })}
                       className="plus_icon"
-                    ></div>
+                    ></div> */}
                   </h2>
                   <div style={{ margin: 20 }}>
                     <div className="row_line_2">
@@ -292,7 +291,7 @@ export default function User() {
                             >
                               <p className="reg_line_header">
                                 Company Name: {x.companyName}
-                                <div
+                                {/* <div
                                   onClick={() =>
                                     navigate("/expEdit", { state: x })
                                   }
@@ -301,7 +300,7 @@ export default function User() {
                                 <div
                                   onClick={() => onDeleteExp(x._id)}
                                   className="trash_icon"
-                                ></div>
+                                ></div> */}
                               </p>
                               <p className="reg_line_header">
                                 Role: {x.role.slice(0, 40)}

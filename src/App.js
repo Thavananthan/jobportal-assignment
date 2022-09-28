@@ -8,10 +8,13 @@ import EducationEdit from "./pages/user/edu";
 import ExperienceEdit from "./pages/user/exp";
 
 import User from "./pages/user";
+import Search from "./pages/search";
+
 import Application from "./pages/application";
 import Table from "./pages/tabel";
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -40,6 +43,7 @@ function App() {
         <Route path="/userEdit" element={<EditUser />} exact />
         <Route path="/eduEdit" element={<EducationEdit />} exact />
         <Route path="/expEdit" element={<ExperienceEdit />} exact />
+        <Route path="/search/:id" element={<Search />} exact />
       </Routes>
       <Footer />
     </div>
