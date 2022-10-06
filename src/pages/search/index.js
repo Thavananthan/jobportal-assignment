@@ -133,36 +133,39 @@ export default function User() {
             </div>
             <div>
               <div className="proceeBar_container">
-                <div class="container">
-                  {users.upProfile == 1 ? (
-                    <ol class="progress-meter">
-                      <li class="progress-point done"></li>
-                      <li class="progress-point todo"></li>
-                      <li class="progress-point todo"></li>
-                      <li class="progress-point todo"></li>
-                    </ol>
-                  ) : users.upProfile == 2 ? (
-                    <ol class="progress-meter">
-                      <li class="progress-point done"></li>
-                      <li class="progress-point done"></li>
-                      <li class="progress-point todo"></li>
-                      <li class="progress-point todo"></li>
-                    </ol>
-                  ) : users.upProfile == 3 ? (
-                    <ol class="progress-meter">
-                      <li class="progress-point done"></li>
-                      <li class="progress-point done"></li>
-                      <li class="progress-point done"></li>
-                      <li class="progress-point todo"></li>
-                    </ol>
-                  ) : users.upProfile >= 4 ? (
-                    <ol class="progress-meter">
-                      <li class="progress-point done"></li>
-                      <li class="progress-point done"></li>
-                      <li class="progress-point done"></li>
-                      <li class="progress-point done"></li>
-                    </ol>
-                  ) : null}
+                <div style={{ paddingLeft: 100 }}>
+                  <div class="container">
+                    {users.upProfile == 1 ? (
+                      <ol class="progress-meter">
+                        <li class="progress-point done"></li>
+                        <li class="progress-point todo"></li>
+                        <li class="progress-point todo"></li>
+                        <li class="progress-point todo"></li>
+                        <li class="progress-point todo"></li>
+                      </ol>
+                    ) : users.upProfile == 2 ? (
+                      <ol class="progress-meter">
+                        <li class="progress-point done"></li>
+                        <li class="progress-point done"></li>
+                        <li class="progress-point todo"></li>
+                        <li class="progress-point todo"></li>
+                      </ol>
+                    ) : users.upProfile == 3 ? (
+                      <ol class="progress-meter">
+                        <li class="progress-point done"></li>
+                        <li class="progress-point done"></li>
+                        <li class="progress-point done"></li>
+                        <li class="progress-point todo"></li>
+                      </ol>
+                    ) : users.upProfile >= 4 ? (
+                      <ol class="progress-meter">
+                        <li class="progress-point done"></li>
+                        <li class="progress-point done"></li>
+                        <li class="progress-point done"></li>
+                        <li class="progress-point done"></li>
+                      </ol>
+                    ) : null}
+                  </div>
                 </div>
               </div>
               <div className="profile_body">
