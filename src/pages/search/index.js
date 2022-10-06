@@ -189,12 +189,29 @@ export default function User() {
                   <div style={{ margin: 20 }}>
                     <div className="row_line_2">
                       <div className="profile_friend_imgs">
-                        <img
-                          src={
-                            "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
-                          }
-                          alt=""
-                        />
+                        <div
+                          style={{
+                            width: 200,
+                            height: 200,
+                            backgroundColor: "pink",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <img
+                            src={
+                              "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=100"
+                            }
+                            alt=""
+                            style={{
+                              width: 200,
+                              height: 200,
+                              backgroundColor: "pink",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          />
+                        </div>
                       </div>
                       <div
                         className="row_line_2"
@@ -266,12 +283,28 @@ export default function User() {
                   <div style={{ margin: 20 }}>
                     <div className="row_line_2">
                       <div className="profile_friend_imgs">
-                        <img
-                          src={
-                            "https://images.unsplash.com/photo-1529400971008-f566de0e6dfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
-                          }
-                          alt=""
-                        />
+                        <div
+                          style={{
+                            width: 200,
+                            height: 200,
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <img
+                            src={
+                              "https://images.unsplash.com/photo-1529400971008-f566de0e6dfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&h=800"
+                            }
+                            alt=""
+                            style={{
+                              width: 200,
+                              height: 200,
+                              backgroundColor: "pink",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          />
+                        </div>
                       </div>
                       <div
                         className="row_line_2"

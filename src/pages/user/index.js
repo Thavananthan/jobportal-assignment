@@ -134,7 +134,7 @@ export default function User() {
             </div>
             <div>
               <div className="proceeBar_container">
-                <div>
+                <div style={{ paddingLeft: 100 }}>
                   <div class="container">
                     {users.upProfile == 1 ? (
                       <ol class="progress-meter">
@@ -189,12 +189,29 @@ export default function User() {
                   <div style={{ margin: 20 }}>
                     <div className="row_line_2">
                       <div className="profile_friend_imgs">
-                        <img
-                          src={
-                            "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
-                          }
-                          alt=""
-                        />
+                        <div
+                          style={{
+                            width: 200,
+                            height: 200,
+                            backgroundColor: "pink",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <img
+                            src={
+                              "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=100"
+                            }
+                            alt=""
+                            style={{
+                              width: 200,
+                              height: 200,
+                              backgroundColor: "pink",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          />
+                        </div>
                       </div>
                       <div
                         className="row_line_2"
@@ -266,12 +283,28 @@ export default function User() {
                   <div style={{ margin: 20 }}>
                     <div className="row_line_2">
                       <div className="profile_friend_imgs">
-                        <img
-                          src={
-                            "https://images.unsplash.com/photo-1529400971008-f566de0e6dfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
-                          }
-                          alt=""
-                        />
+                        <div
+                          style={{
+                            width: 200,
+                            height: 200,
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <img
+                            src={
+                              "https://images.unsplash.com/photo-1529400971008-f566de0e6dfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&h=800"
+                            }
+                            alt=""
+                            style={{
+                              width: 200,
+                              height: 200,
+                              backgroundColor: "pink",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          />
+                        </div>
                       </div>
                       <div
                         className="row_line_2"
@@ -316,6 +349,68 @@ export default function User() {
                 </div>
               </div>
               <br />
+              <div className="profile_body">
+                <div>
+                  <h2 style={{ margin: 10 }}>Take a skill quiz</h2>
+                  <div style={{ margin: 20 }}>
+                    <div className="row_line_2">
+                      <div className="profile_friend_imgs">
+                        <div
+                          style={{
+                            width: 200,
+                            height: 200,
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <img
+                            src={
+                              "https://images.unsplash.com/photo-1578269174936-2709b6aeb913?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
+                            }
+                            alt=""
+                            style={{
+                              width: 200,
+                              height: 200,
+                              backgroundColor: "pink",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          marginLeft: 30,
+                          marginBottom: 10,
+                          minHeight: 200,
+                          marginTop: 40,
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <p>Stand out in recruiter searchs</p>
+                        <p style={{ fontWeight: "bold" }}>
+                          Candidates who can earn a skill badge are 20% more
+                          likely to get hired.
+                        </p>
+                        <button
+                          style={{
+                            width: 100,
+                            height: 40,
+                            backgroundColor: "white",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            alignContent: "center",
+                            borderRadius: 25,
+                          }}
+                        >
+                          <p style={{ marginTop: 6 }}>Start</p>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </>
         )}
