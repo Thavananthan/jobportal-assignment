@@ -11,7 +11,12 @@ import TextArea from "../inputs/textarea";
 import * as Yup from "yup";
 
 import { useNavigate } from "react-router-dom";
-export default function RegisterForm({ setVisible, cover, profile }) {
+export default function RegisterForm({
+  setVisible,
+  setUserDate,
+  cover,
+  profile,
+}) {
   const navigate = useNavigate();
   const userInfos = {
     first_name: "",
@@ -20,9 +25,11 @@ export default function RegisterForm({ setVisible, cover, profile }) {
     mobile: "",
     location: "",
     bio: "",
+    password: "",
   };
   const [user, setUser] = useState(userInfos);
-  const { first_name, last_name, email, mobile, location, bio } = user;
+  const { first_name, last_name, email, mobile, location, bio, password } =
+    user;
   const yearTemp = new Date().getFullYear();
   const handleRegisterChange = (e) => {
     const { name, value } = e.target;
@@ -49,6 +56,7 @@ export default function RegisterForm({ setVisible, cover, profile }) {
     mobile: Yup.string().required("phone number required"),
     location: Yup.string().required("location required"),
     bio: Yup.string().required("bio required"),
+    password: Yup.string().required("password required"),
   });
   const [dateError, setDateError] = useState("");
   const [genderError, setGenderError] = useState("");
@@ -71,12 +79,15 @@ export default function RegisterForm({ setVisible, cover, profile }) {
           bio,
           picture: profile,
           cover,
+          password,
         }
       );
       setError("");
       setSuccess(data.message);
+      setUserDate(data);
       setTimeout(() => {
-        navigate("/edu", { state: data });
+        setVisible(true);
+        // navigate("/edu", { state: data });
       }, 2000);
     } catch (error) {
       setLoading(false);
@@ -95,6 +106,7 @@ export default function RegisterForm({ setVisible, cover, profile }) {
             email,
             mobile,
             location,
+            password,
             bio,
           }}
           validationSchema={registerValidation}
@@ -145,11 +157,11 @@ export default function RegisterForm({ setVisible, cover, profile }) {
                   view={false}
                 />
                 <RegisterInput
-                  type="text"
-                  placeholder="Locations"
-                  name="location"
+                  type="password"
+                  placeholder="Password"
+                  name="password"
                   onChange={handleRegisterChange}
-                  view={true}
+                  view={false}
                 />
               </div>
               <div className="reg_line">

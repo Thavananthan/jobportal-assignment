@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import React from "react";
+import axios from "axios";
 
 import "./style.css";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +11,31 @@ export default function CreatePostPopup({
   profile,
   prof,
   Id,
+  ver,
 }) {
   const navigate = useNavigate();
+  const [otp, setOtp] = useState("");
+
+  const onSubmit = async (email) => {
+    try {
+      console.log(otp, email);
+      const { data } = await axios.post(
+        `http://localhost:8000/api/users/verify`,
+        {
+          email,
+          otp,
+        }
+      );
+
+      setTimeout(() => {
+        setVisible(false);
+        navigate("/edu", { state: data });
+      }, 2000);
+    } catch (error) {
+      console.log(error);
+    }
+    setVisible(false);
+  };
 
   return (
     <div className="blur">
@@ -30,6 +54,27 @@ export default function CreatePostPopup({
             >
               Cancel
             </button>
+          </div>
+        ) : ver ? (
+          <div className="box_profile">
+            <div style={{ padding: 10, width: "100%" }}>
+              <div className="register_form">
+                <input
+                  type="password"
+                  placeholder="enter OTP"
+                  name="otp"
+                  onChange={(event) => setOtp(event.target.value)}
+                />
+              </div>
+              <button
+                className="post_submit"
+                onClick={() => {
+                  onSubmit(Id.email);
+                }}
+              >
+                submit
+              </button>
+            </div>
           </div>
         ) : (
           <div className="box_profile">
